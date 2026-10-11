@@ -1,7 +1,7 @@
 # 🌳 PIM IV - Landing Page: Refloresta Vinhedo
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-Concluído-green" alt="Status do Projeto">
+  <img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-green" alt="Status do Projeto">
 </p>
 
 ## 📄 Sobre o Projeto
