@@ -1,4 +1,4 @@
-      var P = [
+var P = [
         ["Escolas públicas", "CEI Pica Pau"],
         ["Escolas públicas", "CEI Rei Leão"],
         ["Escolas públicas", "CEI Saci Pererê — Dia da Árvore, set/2023"],
@@ -430,5 +430,3 @@
       });
       go(0);
       play();
-
-

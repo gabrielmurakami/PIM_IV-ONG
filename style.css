@@ -1,31 +1,16 @@
-      :root {
-        --bg: #f3f7ee;
-        --surface: #ffffff;
-        --ink: #13261c;
-        --muted: #4b5e52;
-        --forest: #14402b;
-        --leaf: #2f7a40;
+:root {
+        --bg: #0e1a13;
+        --surface: #16271c;
+        --ink: #e8f0e3;
+        --muted: #a3b5a8;
+        --forest: #0a2417;
+        --leaf: #6cc17e;
         --sun: #f2b93b;
-        --line: #d5e0cb;
+        --line: #27402f;
         --on-forest: #f3f7ee;
         box-sizing: border-box;
         padding-top: env(safe-area-inset-top, 0px);
         padding-bottom: env(safe-area-inset-bottom, 0px);
-      }
-      @media (prefers-color-scheme: dark) {
-        :root:not([data-theme="light"]) {
-          --bg: #0e1a13;
-          --surface: #16271c;
-          --ink: #e8f0e3;
-          --muted: #a3b5a8;
-          --forest: #0a2417;
-          --leaf: #6cc17e;
-          --line: #27402f;
-        }
-      }
-      :root[data-theme="dark"] {
-        --bg: #0e1a13; --surface: #16271c; --ink: #e8f0e3;
-        --muted: #a3b5a8; --forest: #0a2417; --leaf: #6cc17e; --line: #27402f;
       }
       html {
         scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 64px);
@@ -456,7 +441,6 @@
       .rv {
         opacity: 0;
         transform: translateY(16px);
-        will-change: transform, opacity;
         transition:
           opacity 0.6s ease,
           transform 0.6s ease;
@@ -465,7 +449,6 @@
       .rv.in {
         opacity: 1;
         transform: none;
-        will-change: auto;
       }
       .bar i {
         transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
