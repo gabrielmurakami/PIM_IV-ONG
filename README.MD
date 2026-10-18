@@ -1,39 +1,64 @@
-# 🌳 PIM IV - Landing Page: Refloresta Vinhedo
+# 🌳 Refloresta Vinhedo
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-green" alt="Status do Projeto">
-</p>
+**Plantando a mudança.** Site institucional do coletivo Refloresta Vinhedo, criado para apresentar sua missão, princípios e ações de regeneração ambiental, reflorestamento e educação ambiental na região de Vinhedo (SP).
 
-## 📄 Sobre o Projeto
+## 📌 Sobre o projeto
 
-Este repositório contém o código-fonte desenvolvido para o **PIM IV** (Projeto Integrado Multidisciplinar). O objetivo do projeto foi criar uma **Landing Page** institucional para a ONG **[Refloresta Vinhedo](https://www.reflorestavinhedo.org/)**.
+O site reúne informações sobre o coletivo e incentiva moradores e organizações a participar das iniciativas ambientais. A experiência foi construída em uma única página, com navegação por seções, identidade visual inspirada na natureza e elementos interativos.
 
-O Refloresta Vinhedo é um coletivo de moradores focado na recuperação de áreas verdes, regeneração da Mata Atlântica e preservação de nascentes no município de Vinhedo - SP. O site foi desenvolvido para dar visibilidade às ações do coletivo, facilitar o contato e promover a educação ambiental.
+## ✨ Funcionalidades
 
-## ✨ O que a Landing Page apresenta
+- **Página inicial** com chamada para participação e texto rotativo.
+- **Quem somos** com a apresentação do coletivo e seus objetivos.
+- **Missão** com foco na restauração ambiental e na proteção das nascentes.
+- **Ações** sobre plantio de mudas, educação ambiental, recuperação de nascentes e troca de saberes.
+- **Princípios** apresentados em cartões gerados dinamicamente com JavaScript.
+- **Indicadores animados** e efeitos de entrada conforme as seções aparecem na tela.
+- **Menu responsivo** para navegação em dispositivos móveis.
+- **Barra de progresso de leitura** e faixa de mensagens animada.
+- **Formulário de interesse** com campos para nome, e-mail, assunto e mensagem.
 
-- **Nossa Missão:** Apresentação dos objetivos do coletivo focados na cultura regenerativa.
-- **Ações:** Detalhamento das frentes de atuação (Plantio de Mudas, Ações Educativas em escolas e Troca de Saberes).
-- **Sobre Nós:** Quem é o coletivo e o impacto da degradação ambiental na região.
-- **Contato / Redes Sociais:** Integração com Instagram e formulários/e-mail para engajar a comunidade.
+## 🛠️ Tecnologias utilizadas
 
-## 🚀 Tecnologias Utilizadas
+- **HTML5** — estrutura e conteúdo da página.
+- **CSS3** — estilos personalizados, animações e comportamento responsivo.
+- **Tailwind CSS** — classes utilitárias carregadas pelo script externo configurado no HTML.
+- **JavaScript** — interações, menu móvel, contadores, animações de rolagem e renderização dos princípios.
+- **Unsplash** — imagens utilizadas como recursos visuais.
 
-_(Ajuste esta seção de acordo com a stack que você utilizou no seu código)_
+## 🚀 Como executar localmente
 
-- **Frontend:** HTML5, CSS3
-- **Lógica e Interatividade:** JavaScript
-- **Hospedagem / Plataforma:** (Ex: Vercel, GitHub Pages, etc.)
+Não é necessário instalar dependências ou compilar o projeto para visualizar a página.
 
-## 🛠️ Como visualizar o projeto localmente
+1. Faça o download ou clone este repositório.
+2. Abra o arquivo `index.html` em um navegador moderno.
 
-```bash
-# 1. Clone este repositório
-$ git clone [https://github.com/gabrielmurakami/PIM_IV-ONG.git](https://github.com/gabrielmurakami/PIM_IV-ONG.git)
+Para trabalhar no código, abra a pasta do projeto no seu editor preferido, como o Visual Studio Code.
 
-# 2. Acesse a pasta do projeto
-$ cd PIM_IV-ONG
+> **Atenção:** o site carrega o Tailwind CSS e as imagens por meio de URLs externas. Para que todos os estilos e imagens apareçam corretamente, é necessário ter conexão com a internet.
 
-# 3. Abra o arquivo index.html no seu navegador
-# (Ou utilize o Live Server se estiver usando o VS Code)
+## 📁 Estrutura do projeto
+
+```text
+refloresta-vinhedo/
+├── index.html   # Página, estilos e scripts do site
+└── README.md    # Documentação do projeto
 ```
+
+## 📬 Contato apresentado no site
+
+- **E-mail:** reflorestavinhedo@gmail.com
+- **Instagram:** [@reflorestavinhedo](https://instagram.com/reflorestavinhedo)
+
+## ⚠️ Observações importantes
+
+- O formulário atual é apenas demonstrativo: ele exibe uma mensagem de confirmação na página, mas **não envia nem armazena os dados**. Para receber mensagens de verdade, será necessário integrar um backend ou um serviço de formulários.
+- Antes de publicar o site, confirme os números e as afirmações ambientais apresentados na página para garantir que estejam atualizados e tenham fontes verificáveis.
+
+## 🌱 Objetivo
+
+Usar a web para divulgar iniciativas de regeneração ambiental, aproximar a comunidade e facilitar a participação em ações que contribuam para um território mais verde.
+
+---
+
+Feito para apoiar a divulgação da causa ambiental em Vinhedo (SP). 🌿
