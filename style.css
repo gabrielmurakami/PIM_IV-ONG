@@ -1,51 +1,352 @@
-html{scroll-behavior:smooth}
-.hero{background:linear-gradient(rgba(10,40,20,.65),rgba(10,40,20,.75)),url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1600') center/cover}
-.reveal{opacity:0;transform:translateY(30px);transition:opacity 1.2s ease,transform 1.2s ease}
-.reveal.show{opacity:1;transform:none}
-.card.reveal, #princ .reveal{transition:opacity .8s ease, transform .8s ease, box-shadow .3s, border-color .3s}
-.card.pronto, #princ .pronto{transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease, opacity .25s;transition-delay:0s!important}
-.missao{position:relative;color:#fff;background:linear-gradient(90deg,rgba(8,30,16,.92) 0%,rgba(8,30,16,.7) 45%,rgba(8,30,16,.25) 100%),linear-gradient(0deg,rgba(8,30,16,.85) 0%,rgba(8,30,16,0) 45%),url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1800') center/cover no-repeat}
-.m-icone{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:9999px;border:1.5px solid rgba(163,230,53,.6);background:rgba(163,230,53,.1);color:#a3e635}
-.m-serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif}
-.m-display{font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.05;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
-.missao h3{text-wrap:balance}
-.missao p{text-wrap:pretty}
-.m-lead{font-size:clamp(1.25rem,2.2vw,1.6rem);line-height:1.45;max-width:34ch}
-.m-corpo{max-width:62ch;line-height:1.7}
-.m-terra{border-left:3px solid #3f6b2a;padding-left:1.25rem}
-.m-agua{border-left:3px solid #2f6f8f;padding-left:1.25rem}
-.m-frase{font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.3;max-width:26ch}
-.m-num{font-variant-numeric:tabular-nums;font-weight:700;color:#3f6b2a}
-.m-ramo path{stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 2.4s ease}
-.reveal.show .m-ramo path{stroke-dashoffset:0}
-@media (prefers-reduced-motion:reduce){
- #missao .reveal{opacity:1;transform:none;transition:none}
- .m-ramo path{stroke-dashoffset:0;transition:none}
+/* =========================================================
+   Refloresta Vinhedo — style.css
+   ========================================================= */
+
+/* ── Base ─────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
 }
-.hero{background-attachment:fixed;position:relative;overflow:hidden}
 
-@keyframes grad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.grad{background:linear-gradient(90deg,#a3e635,#4ade80,#facc15,#a3e635);background-size:300%;-webkit-background-clip:text;color:transparent;animation:grad 6s ease infinite}
-#palavra{display:inline-block;transition:all .5s}
-#palavra.sai{opacity:0;transform:translateY(-20px)}
-@keyframes pulse2{0%,100%{box-shadow:0 0 0 0 rgba(163,230,53,.5)}50%{box-shadow:0 0 0 13px rgba(163,230,53,0)}}
-.pulsa{animation:pulse2 4s ease-in-out infinite}
-@keyframes marquee{to{transform:translateX(-50%)}}
-.marquee{display:flex;width:max-content;animation:marquee 35s linear infinite}
-.card img{transition:transform .6s}
-.card:hover img{transform:scale(1.12)}
-#progresso{position:fixed;top:0;left:0;height:4px;background:#a3e635;z-index:60;width:0}
-header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.3)}
-header nav{transition:padding .3s}
-header.scrolled nav{padding-top:.6rem;padding-bottom:.6rem}
-@keyframes bounce2{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
-.seta{animation:bounce2 1.5s infinite}
-.obj{position:relative;overflow:hidden;display:flex;flex-direction:column;background:#fff;border:1px solid #e7e5e4;border-radius:1.5rem;padding:2rem 1.75rem 1.75rem}
-.obj:hover{transform:translateY(-8px);box-shadow:0 20px 40px -12px rgba(20,83,45,.25);border-color:#a3e635}
+/* ── Hero ─────────────────────────────────────────────── */
+.hero {
+  background:
+    linear-gradient(rgba(10, 40, 20, 0.65), rgba(10, 40, 20, 0.75)),
+    url("https://images.unsplash.com/photo-1448375240586-882707db888b?w=1600")
+      center/cover;
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
+}
 
-.obj-ico{position:relative;display:flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:1rem;font-size:1.75rem;margin-bottom:1.25rem;background:transparent;border:1.5px solid #65a30d;transition:transform .4s}
+/* ── Animações de entrada (reveal) ───────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s ease;
+}
 
-.pr{position:relative;display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(20,83,45,.55),rgba(5,46,22,.6));border:1px solid rgba(163,230,53,.18);border-radius:1.5rem;padding:1.75rem}
-.pr:hover{transform:translateY(-8px)}
-.pr-ico{display:flex;align-items:center;justify-content:center;width:52px;height:52px;font-size:1.6rem;margin-bottom:1.1rem;border-radius:.875rem;border:1.5px solid rgba(163,230,53,.6);background:rgba(163,230,53,.1)}
-.obj-tag{align-self:flex-start;margin-top:1.25rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#166534;background:#f0fdf4;border:1px solid #bbf7d0;padding:.3rem .75rem;border-radius:9999px}
+.reveal.show {
+  opacity: 1;
+  transform: none;
+}
+
+.card.reveal,
+#princ .reveal {
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease,
+    box-shadow 0.3s,
+    border-color 0.3s;
+}
+
+/* Remove delay após entrada (hover imediato) */
+.card.pronto,
+#princ .pronto {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    opacity 0.25s;
+  transition-delay: 0s !important;
+}
+
+/* ── Seção Missão ─────────────────────────────────────── */
+.missao {
+  position: relative;
+  color: #fff;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 30, 16, 0.92) 0%,
+      rgba(8, 30, 16, 0.7) 45%,
+      rgba(8, 30, 16, 0.25) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(8, 30, 16, 0.85) 0%,
+      rgba(8, 30, 16, 0) 45%
+    ),
+    url("https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1800")
+      center/cover no-repeat;
+}
+
+.m-icone {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(163, 230, 53, 0.6);
+  background: rgba(163, 230, 53, 0.1);
+  color: #a3e635;
+}
+
+.m-serif {
+  font-family:
+    "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua",
+    Georgia, serif;
+}
+
+.m-display {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.missao h3 {
+  text-wrap: balance;
+}
+
+.missao p {
+  text-wrap: pretty;
+}
+
+.m-lead {
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  line-height: 1.45;
+  max-width: 34ch;
+}
+
+.m-corpo {
+  max-width: 62ch;
+  line-height: 1.7;
+}
+
+.m-terra {
+  border-left: 3px solid #3f6b2a;
+  padding-left: 1.25rem;
+}
+
+.m-agua {
+  border-left: 3px solid #2f6f8f;
+  padding-left: 1.25rem;
+}
+
+.m-frase {
+  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+  line-height: 1.3;
+  max-width: 26ch;
+}
+
+.m-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: #3f6b2a;
+}
+
+/* Animação do traço SVG (ramo) */
+.m-ramo path {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  transition: stroke-dashoffset 2.4s ease;
+}
+
+.reveal.show .m-ramo path {
+  stroke-dashoffset: 0;
+}
+
+/* Acessibilidade: respeita preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  #missao .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .m-ramo path {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}
+
+/* ── Animações globais ────────────────────────────────── */
+@keyframes grad {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.grad {
+  background: linear-gradient(90deg, #a3e635, #4ade80, #facc15, #a3e635);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: grad 6s ease infinite;
+}
+
+/* Palavra rotativa */
+#palavra {
+  display: inline-block;
+  transition: all 0.5s;
+}
+
+#palavra.sai {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* Pulsação no botão CTA principal */
+@keyframes pulse2 {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(163, 230, 53, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 13px rgba(163, 230, 53, 0);
+  }
+}
+
+.pulsa {
+  animation: pulse2 4s ease-in-out infinite;
+}
+
+/* Ticker marquee */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+/* Zoom nas imagens dos cards ao hover */
+.card img {
+  transition: transform 0.6s;
+}
+
+.card:hover img {
+  transform: scale(1.12);
+}
+
+/* ── Barra de progresso de leitura ───────────────────── */
+#progresso {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: #a3e635;
+  z-index: 60;
+  width: 0;
+}
+
+/* ── Header ───────────────────────────────────────────── */
+header.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+header nav {
+  transition: padding 0.3s;
+}
+
+header.scrolled nav {
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+/* ── Seta de scroll ───────────────────────────────────── */
+@keyframes bounce2 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+.seta {
+  animation: bounce2 1.5s infinite;
+}
+
+/* ── Cards de Objetivos (.obj) ────────────────────────── */
+.obj {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e7e5e4;
+  border-radius: 1.5rem;
+  padding: 2rem 1.75rem 1.75rem;
+}
+
+.obj:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -12px rgba(20, 83, 45, 0.25);
+  border-color: #a3e635;
+}
+
+.obj-ico {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 1rem;
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+  background: transparent;
+  border: 1.5px solid #65a30d;
+  transition: transform 0.4s;
+}
+
+/* ── Cards de Princípios (.pr) ────────────────────────── */
+.pr {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    160deg,
+    rgba(20, 83, 45, 0.55),
+    rgba(5, 46, 22, 0.6)
+  );
+  border: 1px solid rgba(163, 230, 53, 0.18);
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+}
+
+.pr:hover {
+  transform: translateY(-8px);
+}
+
+.pr-ico {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  font-size: 1.6rem;
+  margin-bottom: 1.1rem;
+  border-radius: 0.875rem;
+  border: 1.5px solid rgba(163, 230, 53, 0.6);
+  background: rgba(163, 230, 53, 0.1);
+}
+
+/* ── Tag dos cards de objetivos ───────────────────────── */
+.obj-tag {
+  align-self: flex-start;
+  margin-top: 1.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+}

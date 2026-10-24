@@ -2,21 +2,26 @@
 <html lang="pt-BR">
   <head>
     <script src="https://myhub.ia.br/canvas-vendor/tailwind.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Refloresta Vinhedo | Coletivo de Plantio</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="font-sans text-gray-800 bg-stone-50">
+    <!-- Barra de progresso de leitura -->
     <div id="progresso"></div>
 
+    <!-- ═══════════════════════════════════════════════════
+         HEADER / NAVEGAÇÃO
+    ════════════════════════════════════════════════════ -->
     <header class="fixed w-full z-50 bg-green-950/90 backdrop-blur text-white">
       <nav
         class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4"
       >
-        <a href="#inicio" class="text-xl font-extrabold tracking-wide"
-          >🌳 REFLORESTA <span class="text-lime-400">VINHEDO</span></a
-        >
+        <a href="#inicio" class="text-xl font-extrabold tracking-wide">
+          🌳 REFLORESTA <span class="text-lime-400">VINHEDO</span>
+        </a>
         <button id="menuBtn" class="md:hidden text-2xl">☰</button>
         <ul id="menu" class="hidden md:flex gap-6 text-sm font-medium">
           <li>
@@ -31,11 +36,13 @@
             <a
               href="#contato"
               class="bg-lime-500 text-green-950 px-4 py-2 rounded-full hover:bg-lime-400"
-              >Participe</a
             >
+              Participe
+            </a>
           </li>
         </ul>
       </nav>
+      <!-- Menu mobile -->
       <ul id="mobile" class="hidden md:hidden flex-col px-6 pb-4 gap-3 text-sm">
         <li><a href="#quem-somos">Quem Somos</a></li>
         <li><a href="#missao">Missão</a></li>
@@ -45,6 +52,9 @@
       </ul>
     </header>
 
+    <!-- ═══════════════════════════════════════════════════
+         SEÇÃO 1 — HERO
+    ════════════════════════════════════════════════════ -->
     <section id="inicio" class="hero min-h-screen flex items-center text-white">
       <div class="max-w-6xl mx-auto px-6 pt-24">
         <p class="uppercase tracking-[.3em] text-lime-400 text-sm mb-4">
@@ -65,13 +75,15 @@
           <a
             href="#contato"
             class="pulsa bg-lime-500 text-green-950 font-bold px-6 py-3 rounded-full hover:bg-lime-400 hover:scale-105 transition"
-            >Seja voluntário</a
           >
+            Seja voluntário
+          </a>
           <a
             href="#acoes"
             class="border border-white px-6 py-3 rounded-full hover:bg-white hover:text-green-950 transition"
-            >Conheça nossas ações</a
           >
+            Conheça nossas ações
+          </a>
         </div>
       </div>
       <a
@@ -81,6 +93,9 @@
       >
     </section>
 
+    <!-- ═══════════════════════════════════════════════════
+         FAIXA DE NÚMEROS (CONTADORES)
+    ════════════════════════════════════════════════════ -->
     <section class="bg-green-900 text-white py-12">
       <div
         class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
@@ -116,14 +131,19 @@
       </div>
     </section>
 
+    <!-- Ticker marquee -->
     <div
       class="bg-lime-400 text-green-950 py-3 overflow-hidden font-bold uppercase tracking-widest text-sm"
     >
       <div class="marquee" id="mq"></div>
     </div>
 
+    <!-- ═══════════════════════════════════════════════════
+         SEÇÃO 2 — QUEM SOMOS
+    ════════════════════════════════════════════════════ -->
     <section id="quem-somos" class="py-24 bg-stone-50 scroll-mt-20">
       <div class="max-w-6xl mx-auto px-6">
+        <!-- Bloco foto + texto -->
         <div class="grid lg:grid-cols-12 gap-12 items-center reveal">
           <div class="lg:col-span-5 relative">
             <div
@@ -179,6 +199,7 @@
           </div>
         </div>
 
+        <!-- Objetivos -->
         <div class="mt-24 mb-10 text-center reveal">
           <p
             class="text-green-700 text-sm font-semibold uppercase tracking-[.3em] mb-3"
@@ -192,6 +213,7 @@
             class="block w-16 h-1 bg-lime-400 rounded-full mx-auto mt-4"
           ></span>
         </div>
+
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="card reveal obj group">
             <span class="obj-ico">🌱</span>
@@ -237,6 +259,7 @@
           </div>
         </div>
 
+        <!-- Banner CTA -->
         <div
           class="mt-12 reveal flex flex-col md:flex-row items-center gap-6 bg-green-900 text-white rounded-3xl p-8"
         >
@@ -249,12 +272,16 @@
           <a
             href="#contato"
             class="shrink-0 bg-lime-500 text-green-950 font-bold px-6 py-3 rounded-full hover:bg-lime-400 transition"
-            >Quero participar</a
           >
+            Quero participar
+          </a>
         </div>
       </div>
     </section>
 
+    <!-- ═══════════════════════════════════════════════════
+         SEÇÃO 3 — MISSÃO
+    ════════════════════════════════════════════════════ -->
     <section
       id="missao"
       aria-labelledby="missao-titulo"
@@ -277,7 +304,8 @@
           </h2>
           <p class="mt-6 text-lg text-gray-200 max-w-xl leading-relaxed">
             Somos um coletivo criado em 2021 por pessoas que amam o território
-            de <span translate="no">Vinhedo</span> e região.
+            de
+            <span translate="no">Vinhedo</span> e região.
           </p>
           <p class="mt-4 text-gray-300 max-w-xl leading-relaxed">
             Nossa cidade, antes desejada pela qualidade de vida e pelo verde,
@@ -294,13 +322,14 @@
           </p>
         </div>
 
+        <!-- Três pilares -->
         <ul
           role="list"
           class="mt-16 grid sm:grid-cols-3 gap-10 max-w-4xl reveal"
         >
           <li class="flex gap-4 items-start min-w-0">
-            <span class="m-icone" aria-hidden="true"
-              ><svg
+            <span class="m-icone" aria-hidden="true">
+              <svg
                 width="26"
                 height="26"
                 viewBox="0 0 24 24"
@@ -311,8 +340,9 @@
                 stroke-linejoin="round"
               >
                 <path d="M5 21c0-9 5-15 15-16-1 10-7 15-15 16z" />
-                <path d="M5 21l8-8" /></svg
-            ></span>
+                <path d="M5 21l8-8" />
+              </svg>
+            </span>
             <div class="min-w-0 break-words">
               <h3 class="font-bold text-lg text-lime-400">Recuperar</h3>
               <p class="text-sm text-gray-200">
@@ -321,8 +351,8 @@
             </div>
           </li>
           <li class="flex gap-4 items-start min-w-0">
-            <span class="m-icone" aria-hidden="true"
-              ><svg
+            <span class="m-icone" aria-hidden="true">
+              <svg
                 width="26"
                 height="26"
                 viewBox="0 0 24 24"
@@ -333,8 +363,9 @@
                 stroke-linejoin="round"
               >
                 <path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z" />
-                <path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5" /></svg
-            ></span>
+                <path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5" />
+              </svg>
+            </span>
             <div class="min-w-0 break-words">
               <h3 class="font-bold text-lg text-lime-400">Proteger</h3>
               <p class="text-sm text-gray-200">
@@ -343,8 +374,8 @@
             </div>
           </li>
           <li class="flex gap-4 items-start min-w-0">
-            <span class="m-icone" aria-hidden="true"
-              ><svg
+            <span class="m-icone" aria-hidden="true">
+              <svg
                 width="26"
                 height="26"
                 viewBox="0 0 24 24"
@@ -359,8 +390,9 @@
                 <circle cx="19" cy="9" r="2.2" />
                 <path d="M7 20v-2a5 5 0 0 1 10 0v2" />
                 <path d="M2 19v-1a3 3 0 0 1 4-2.8" />
-                <path d="M22 19v-1a3 3 0 0 0-4-2.8" /></svg
-            ></span>
+                <path d="M22 19v-1a3 3 0 0 0-4-2.8" />
+              </svg>
+            </span>
             <div class="min-w-0 break-words">
               <h3 class="font-bold text-lg text-lime-400">Educar</h3>
               <p class="text-sm text-gray-200">
@@ -372,6 +404,9 @@
       </div>
     </section>
 
+    <!-- ═══════════════════════════════════════════════════
+         SEÇÃO 4 — AÇÕES
+    ════════════════════════════════════════════════════ -->
     <section id="acoes" class="py-20">
       <div class="max-w-6xl mx-auto px-6">
         <h2
@@ -384,9 +419,9 @@
             class="bg-white rounded-2xl shadow-lg overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition card reveal"
           >
             <img
-              src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600"
+              src="/assets/plantio_de_mudas.jpg"
               class="h-48 w-full object-cover"
-              alt=""
+              alt="Plantio de mudas"
             />
             <div class="p-6">
               <h3 class="font-bold text-xl text-green-800 mb-2">
@@ -399,13 +434,14 @@
               </p>
             </div>
           </div>
+
           <div
             class="bg-white rounded-2xl shadow-lg overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition card reveal"
           >
             <img
-              src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600"
+              src="/assets/acoes_educativas.jpg"
               class="h-48 w-full object-cover"
-              alt=""
+              alt="Ações educativas"
             />
             <div class="p-6">
               <h3 class="font-bold text-xl text-green-800 mb-2">
@@ -418,13 +454,14 @@
               </p>
             </div>
           </div>
+
           <div
             class="bg-white rounded-2xl shadow-lg overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition card reveal"
           >
             <img
               src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=600"
               class="h-48 w-full object-cover"
-              alt=""
+              alt="Nascentes"
             />
             <div class="p-6">
               <h3 class="font-bold text-xl text-green-800 mb-2">Nascentes</h3>
@@ -435,13 +472,14 @@
               </p>
             </div>
           </div>
+
           <div
             class="bg-white rounded-2xl shadow-lg overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition card reveal"
           >
             <img
-              src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600"
+              src="/assets/troca_de_saberes.jpg"
               class="h-48 w-full object-cover"
-              alt="Floresta"
+              alt="Troca de saberes"
             />
             <div class="p-6">
               <h3 class="font-bold text-xl text-green-800 mb-2">
@@ -463,6 +501,9 @@
       </div>
     </section>
 
+    <!-- ═══════════════════════════════════════════════════
+         SEÇÃO 5 — PRINCÍPIOS (cards gerados pelo JS)
+    ════════════════════════════════════════════════════ -->
     <section id="principios" class="py-24 bg-green-950 text-white scroll-mt-20">
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-14 reveal">
@@ -485,10 +526,14 @@
             coletivo.
           </p>
         </div>
+        <!-- Cards injetados pelo script.js -->
         <div id="princ" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
       </div>
     </section>
 
+    <!-- ═══════════════════════════════════════════════════
+         SEÇÃO 6 — CONTATO
+    ════════════════════════════════════════════════════ -->
     <section id="contato" class="py-20">
       <div class="max-w-3xl mx-auto px-6 text-center reveal">
         <h2 class="text-3xl font-extrabold text-green-900 mb-3">
@@ -504,16 +549,21 @@
         >
           <input
             required
+            name="from_name"
             placeholder="Seu nome"
-            class="border rounded-lg p-3"
+            class="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-lime-400"
           />
           <input
             required
             type="email"
+            name="from_email"
             placeholder="Seu e-mail"
-            class="border rounded-lg p-3"
+            class="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-lime-400"
           />
-          <select class="border rounded-lg p-3">
+          <select
+            name="assunto"
+            class="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-lime-400"
+          >
             <option>Quero ser voluntário</option>
             <option>Quero um plantio na minha escola</option>
             <option>Quero um plantio no meu condomínio</option>
@@ -521,21 +571,30 @@
           </select>
           <textarea
             rows="4"
+            name="mensagem"
             placeholder="Mensagem"
-            class="border rounded-lg p-3"
+            class="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-lime-400"
           ></textarea>
           <button
-            class="bg-green-800 text-white font-bold py-3 rounded-full hover:bg-green-700"
+            id="btnEnviar"
+            class="bg-green-800 text-white font-bold py-3 rounded-full hover:bg-green-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
           >
             Enviar
           </button>
           <p id="ok" class="hidden text-center text-green-700 font-semibold">
-            Obrigado! Entraremos em contato. 🌱
+            Obrigado! Entraremos em contato em breve. 🌱
+          </p>
+          <p id="erro" class="hidden text-center text-red-600 font-semibold">
+            Ocorreu um erro ao enviar. Tente novamente ou escreva direto para
+            reflorestavinhedo@gmail.com
           </p>
         </form>
       </div>
     </section>
 
+    <!-- ═══════════════════════════════════════════════════
+         FOOTER
+    ════════════════════════════════════════════════════ -->
     <footer class="bg-green-900 text-gray-200 py-10 text-center text-sm">
       <p class="font-bold text-white text-lg mb-2">🌳 Refloresta Vinhedo</p>
       <p>
@@ -553,6 +612,7 @@
       </p>
     </footer>
 
-    <script src="main.js"></script>
+    <!-- Script principal (carregado após o DOM) -->
+    <script src="script.js"></script>
   </body>
 </html>
