@@ -8,7 +8,7 @@ O site reúne informações sobre o coletivo e incentiva moradores e organizaç�
 
 ## ✨ Funcionalidades
 
-- **Página inicial** com chamada para participação e texto rotativo.
+- **Página inicial** com chamada para participação e texto rotativo animado.
 - **Quem somos** com a apresentação do coletivo e seus objetivos.
 - **Missão** com foco na restauração ambiental e na proteção das nascentes.
 - **Ações** sobre plantio de mudas, educação ambiental, recuperação de nascentes e troca de saberes.
@@ -16,34 +16,73 @@ O site reúne informações sobre o coletivo e incentiva moradores e organizaç�
 - **Indicadores animados** e efeitos de entrada conforme as seções aparecem na tela.
 - **Menu responsivo** para navegação em dispositivos móveis.
 - **Barra de progresso de leitura** e faixa de mensagens animada.
-- **Formulário de interesse** com campos para nome, e-mail, assunto e mensagem.
+- **Formulário de contato funcional** com envio real de e-mail via EmailJS, campos de nome, e-mail, assunto e mensagem, estado de carregamento no botão e feedback visual de sucesso ou erro.
 
 ## 🛠️ Tecnologias utilizadas
 
 - **HTML5** — estrutura e conteúdo da página.
 - **CSS3** — estilos personalizados, animações e comportamento responsivo.
-- **Tailwind CSS** — classes utilitárias carregadas pelo script externo configurado no HTML.
-- **JavaScript** — interações, menu móvel, contadores, animações de rolagem e renderização dos princípios.
+- **Tailwind CSS** — classes utilitárias carregadas via script externo.
+- **JavaScript** — interações, menu móvel, contadores, animações de rolagem, renderização dos princípios e integração com o serviço de e-mail.
+- **EmailJS** — serviço client-side para envio de e-mails pelo formulário, sem necessidade de backend.
 - **Unsplash** — imagens utilizadas como recursos visuais.
-
-## 🚀 Como executar localmente
-
-Não é necessário instalar dependências ou compilar o projeto para visualizar a página.
-
-1. Faça o download ou clone este repositório.
-2. Abra o arquivo `index.html` em um navegador moderno.
-
-Para trabalhar no código, abra a pasta do projeto no seu editor preferido, como o Visual Studio Code.
-
-> **Atenção:** o site carrega o Tailwind CSS e as imagens por meio de URLs externas. Para que todos os estilos e imagens apareçam corretamente, é necessário ter conexão com a internet.
 
 ## 📁 Estrutura do projeto
 
 ```text
 refloresta-vinhedo/
-├── index.html   # Página, estilos e scripts do site
-└── README.md    # Documentação do projeto
+├── index.html      # Estrutura HTML da página
+├── style.css       # Estilos personalizados e animações
+├── script.js       # Lógica de interação, animações e envio do formulário
+├── assets/
+│   ├── plantio_de_mudas.jpg
+│   ├── acoes_educativas.jpg
+│   └── troca_de_saberes.jpg
+└── README.md       # Documentação do projeto
 ```
+
+## 🚀 Como executar localmente
+
+Não é necessário instalar dependências ou compilar o projeto.
+
+1. Faça o download ou clone este repositório.
+2. Abra o arquivo `index.html` em um navegador moderno.
+
+Para trabalhar no código, abra a pasta do projeto no editor de sua preferência, como o Visual Studio Code.
+
+> **Atenção:** o site carrega o Tailwind CSS, o EmailJS e algumas imagens por meio de URLs externas. Para que todos os recursos funcionem corretamente, é necessário ter conexão com a internet.
+
+## 📧 Configuração do formulário de contato (EmailJS)
+
+O formulário utiliza o [EmailJS](https://www.emailjs.com/) para enviar mensagens diretamente para um e-mail, sem necessidade de servidor. Para ativá-lo:
+
+1. Crie uma conta gratuita em [emailjs.com](https://www.emailjs.com/) (plano gratuito: 200 e-mails/mês).
+2. Adicione um serviço de e-mail em **Email Services** (Gmail, Outlook etc.) e anote o `Service ID`.
+3. Crie um template em **Email Templates** usando as variáveis abaixo e anote o `Template ID`:
+
+   | Variável | Campo do formulário |
+   |---|---|
+   | `{{from_name}}` | Nome |
+   | `{{from_email}}` | E-mail |
+   | `{{assunto}}` | Assunto |
+   | `{{mensagem}}` | Mensagem |
+
+4. Acesse **Account → API Keys** e copie a **Public Key**.
+5. No arquivo `script.js`, substitua as três constantes no início do bloco EmailJS:
+
+```js
+const EMAILJS_PUBLIC_KEY  = "SUA_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID  = "SEU_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "SEU_TEMPLATE_ID";
+```
+
+### Comportamento do formulário
+
+| Situação | Comportamento |
+|---|---|
+| Enviando | Botão exibe "Enviando…" e fica desabilitado |
+| Sucesso | Mensagem verde de confirmação; campos resetados |
+| Erro | Mensagem vermelha com fallback para o e-mail direto |
 
 ## 📬 Contato apresentado no site
 
@@ -52,8 +91,8 @@ refloresta-vinhedo/
 
 ## ⚠️ Observações importantes
 
-- O formulário atual é apenas demonstrativo: ele exibe uma mensagem de confirmação na página, mas **não envia nem armazena os dados**. Para receber mensagens de verdade, será necessário integrar um backend ou um serviço de formulários.
 - Antes de publicar o site, confirme os números e as afirmações ambientais apresentados na página para garantir que estejam atualizados e tenham fontes verificáveis.
+- A Public Key do EmailJS fica exposta no código client-side. Para uso em produção, configure um domínio autorizado nas configurações da conta EmailJS para evitar uso indevido.
 
 ## 🌱 Objetivo
 
