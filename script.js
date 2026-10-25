@@ -61,7 +61,7 @@ document.getElementById("princ").innerHTML = principios
 
 /* ── 3. Menu Mobile ───────────────────────────────────── */
 const menuBtn = document.getElementById("menuBtn");
-const mobile = document.getElementById("mobile");
+const mobile  = document.getElementById("mobile");
 
 menuBtn.onclick = () => {
   mobile.classList.toggle("hidden");
@@ -86,7 +86,7 @@ const io = new IntersectionObserver(
       // Animação dos contadores numéricos
       if (entry.target.classList.contains("counter")) {
         const total = +entry.target.dataset.to;
-        let atual = 0;
+        let atual   = 0;
         const passo = total / 50;
 
         const ticker = setInterval(() => {
@@ -110,23 +110,27 @@ document.querySelectorAll(".reveal, .counter").forEach((el) => io.observe(el));
 
 /* ── 5. EmailJS — Formulário de contato ───────────────── */
 /*
- * Como configurar:
- * 1. Crie conta gratuita em https://www.emailjs.com/
- * 2. Adicione um serviço de e-mail (Gmail, Outlook etc.)
- * 3. Crie um template com as variáveis:
- *      {{from_name}}, {{from_email}}, {{assunto}}, {{mensagem}}
- * 4. Substitua as três constantes abaixo pelos seus IDs
+ * As credenciais são lidas de window.ENV, definido em config.js.
+ * config.js está no .gitignore e nunca é commitado.
+ * Copie config.example.js → config.js e preencha os valores reais.
+ *
+ * Proteção em runtime: configure os Allowed Origins no painel do
+ * EmailJS (Account → Security) com o domínio de produção do site.
  */
-const EMAILJS_PUBLIC_KEY = "SUA_PUBLIC_KEY"; // Account → API Keys
-const EMAILJS_SERVICE_ID = "SEU_SERVICE_ID"; // Email Services → Service ID
-const EMAILJS_TEMPLATE_ID = "SEU_TEMPLATE_ID"; // Email Templates → Template ID
+const EMAILJS_PUBLIC_KEY  = window.ENV?.EMAILJS_PUBLIC_KEY  || "";
+const EMAILJS_SERVICE_ID  = window.ENV?.EMAILJS_SERVICE_ID  || "";
+const EMAILJS_TEMPLATE_ID = window.ENV?.EMAILJS_TEMPLATE_ID || "";
+
+if (!EMAILJS_PUBLIC_KEY) {
+  console.warn("[EmailJS] config.js não encontrado ou PUBLIC_KEY ausente. Copie config.example.js → config.js e preencha os valores.");
+}
 
 emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
-const form = document.getElementById("form");
+const form      = document.getElementById("form");
 const btnEnviar = document.getElementById("btnEnviar");
-const ok = document.getElementById("ok");
-const erroEl = document.getElementById("erro");
+const ok        = document.getElementById("ok");
+const erroEl    = document.getElementById("erro");
 
 form.onsubmit = async (e) => {
   e.preventDefault();
@@ -137,7 +141,7 @@ form.onsubmit = async (e) => {
 
   // Feedback de carregamento
   btnEnviar.textContent = "Enviando…";
-  btnEnviar.disabled = true;
+  btnEnviar.disabled    = true;
 
   try {
     await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
@@ -148,7 +152,7 @@ form.onsubmit = async (e) => {
     erroEl.classList.remove("hidden");
   } finally {
     btnEnviar.textContent = "Enviar";
-    btnEnviar.disabled = false;
+    btnEnviar.disabled    = false;
   }
 };
 
@@ -163,8 +167,8 @@ setInterval(() => {
     indicePalavra = (indicePalavra + 1) % palavras.length;
     palavraEl.textContent = palavras[indicePalavra];
     palavraEl.classList.remove("sai");
-  }, 600);
-}, 3000);
+  }, 800);
+}, 3500);
 
 /* ── 7. Ticker marquee ────────────────────────────────── */
 const itensMarquee = [
@@ -183,13 +187,12 @@ const mq = document.getElementById("mq");
 mq.innerHTML = conteudoMarquee + conteudoMarquee; // duplicado para loop contínuo
 
 /* ── 8. Header + barra de progresso de leitura ─────────── */
-const header = document.querySelector("header");
+const header    = document.querySelector("header");
 const progresso = document.getElementById("progresso");
 
 window.addEventListener("scroll", () => {
-  const scrollAtual = window.scrollY;
-  const alturaTotal =
-    document.documentElement.scrollHeight - window.innerHeight;
+  const scrollAtual  = window.scrollY;
+  const alturaTotal  = document.documentElement.scrollHeight - window.innerHeight;
 
   progresso.style.width = (scrollAtual / alturaTotal) * 100 + "%";
   header.classList.toggle("scrolled", scrollAtual > 50);

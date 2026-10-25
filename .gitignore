@@ -1,0 +1,13 @@
+# ── Credenciais — NUNCA commitar ──────────────────────
+.env
+config.js
+
+# ── Sistema operacional ────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Editores ───────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
