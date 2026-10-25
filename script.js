@@ -47,17 +47,50 @@ const principios = [
 ];
 
 /* ── 2. Renderização dos cards de Princípios ──────────── */
-document.getElementById("princ").innerHTML = principios
-  .map(
-    ([icone, titulo, texto]) =>
-      `<div class="pr">
-        <span class="pr-ico" aria-hidden="true">${icone}</span>
-        <p class="text-xs uppercase tracking-[.2em] text-gray-400 mb-1">Somos</p>
-        <h3 class="text-xl font-extrabold text-lime-400 mb-3">${titulo}</h3>
-        <p class="text-sm text-gray-300 leading-relaxed">${texto}</p>
-      </div>`,
-  )
-  .join("");
+/*
+ * [FIX-SEC-7] Substituído innerHTML por criação via API do DOM.
+ *
+ * O risco anterior: se a fonte dos dados deixasse de ser um array
+ * estático e passasse a vir de uma API ou de input do usuário, a
+ * injeção de innerHTML executaria qualquer HTML/script contido no
+ * texto — ataque XSS clássico.
+ *
+ * A correção usa textContent para cada nó de texto, garantindo que
+ * o conteúdo seja tratado como texto puro, nunca como marcação.
+ */
+function criarCardPrincipio(icone, titulo, texto) {
+  const div = document.createElement("div");
+  div.className = "pr";
+
+  const spanIco = document.createElement("span");
+  spanIco.className = "pr-ico";
+  spanIco.setAttribute("aria-hidden", "true");
+  spanIco.textContent = icone;           // textContent — não interpreta HTML
+
+  const pLabel = document.createElement("p");
+  pLabel.className = "text-xs uppercase tracking-[.2em] text-gray-400 mb-1";
+  pLabel.textContent = "Somos";
+
+  const h3 = document.createElement("h3");
+  h3.className = "text-xl font-extrabold text-lime-400 mb-3";
+  h3.textContent = titulo;              // textContent — não interpreta HTML
+
+  const pTexto = document.createElement("p");
+  pTexto.className = "text-sm text-gray-300 leading-relaxed";
+  pTexto.textContent = texto;           // textContent — não interpreta HTML
+
+  div.append(spanIco, pLabel, h3, pTexto);
+  return div;
+}
+
+const princEl   = document.getElementById("princ");
+const fragment  = document.createDocumentFragment();
+
+principios.forEach(([icone, titulo, texto]) => {
+  fragment.appendChild(criarCardPrincipio(icone, titulo, texto));
+});
+
+princEl.appendChild(fragment);
 
 /* ── 3. Menu Mobile ───────────────────────────────────── */
 const menuBtn = document.getElementById("menuBtn");
@@ -116,13 +149,18 @@ document.querySelectorAll(".reveal, .counter").forEach((el) => io.observe(el));
  *
  * Proteção em runtime: configure os Allowed Origins no painel do
  * EmailJS (Account → Security) com o domínio de produção do site.
+ * Essa é a única barreira real contra uso indevido da Public Key,
+ * que fica inevitavelmente exposta no código client-side.
  */
 const EMAILJS_PUBLIC_KEY  = window.ENV?.EMAILJS_PUBLIC_KEY  || "";
 const EMAILJS_SERVICE_ID  = window.ENV?.EMAILJS_SERVICE_ID  || "";
 const EMAILJS_TEMPLATE_ID = window.ENV?.EMAILJS_TEMPLATE_ID || "";
 
 if (!EMAILJS_PUBLIC_KEY) {
-  console.warn("[EmailJS] config.js não encontrado ou PUBLIC_KEY ausente. Copie config.example.js → config.js e preencha os valores.");
+  console.warn(
+    "[EmailJS] config.js não encontrado ou PUBLIC_KEY ausente. " +
+    "Copie config.example.js → config.js e preencha os valores."
+  );
 }
 
 emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
@@ -132,6 +170,21 @@ const btnEnviar = document.getElementById("btnEnviar");
 const ok        = document.getElementById("ok");
 const erroEl    = document.getElementById("erro");
 
+/*
+ * [FIX-SEC-8] Rate limiting client-side — limita a 1 envio por minuto.
+ *
+ * Sem essa proteção, um bot podia esgotar as 200 mensagens/mês do
+ * plano gratuito do EmailJS com poucos segundos de requisições.
+ * Nota: o rate limiting server-side do EmailJS (Allowed Origins +
+ * limites de conta) continua sendo a camada principal de defesa;
+ * este controle é complementar e melhora a experiência do usuário.
+ */
+const INTERVALO_MIN_MS = 60_000; // 60 segundos entre envios
+const ERRO_ENVIO_MSG   =
+  "Ocorreu um erro ao enviar. Tente novamente ou escreva para reflorestavinhedo@gmail.com";
+
+let ultimoEnvioTs = 0;
+
 form.onsubmit = async (e) => {
   e.preventDefault();
 
@@ -139,16 +192,27 @@ form.onsubmit = async (e) => {
   ok.classList.add("hidden");
   erroEl.classList.add("hidden");
 
+  // Verifica intervalo mínimo entre envios (rate limiting)
+  const agora = Date.now();
+  if (agora - ultimoEnvioTs < INTERVALO_MIN_MS) {
+    const restante = Math.ceil((INTERVALO_MIN_MS - (agora - ultimoEnvioTs)) / 1000);
+    erroEl.textContent = `Aguarde ${restante}s antes de tentar novamente.`;
+    erroEl.classList.remove("hidden");
+    return;
+  }
+
   // Feedback de carregamento
   btnEnviar.textContent = "Enviando…";
   btnEnviar.disabled    = true;
 
   try {
     await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+    ultimoEnvioTs = Date.now(); // Registra timestamp apenas em caso de sucesso
     ok.classList.remove("hidden");
     form.reset();
   } catch (err) {
     console.error("EmailJS error:", err);
+    erroEl.textContent = ERRO_ENVIO_MSG;
     erroEl.classList.remove("hidden");
   } finally {
     btnEnviar.textContent = "Enviar";
@@ -157,8 +221,8 @@ form.onsubmit = async (e) => {
 };
 
 /* ── 6. Palavra rotativa no Hero ──────────────────────── */
-const palavras = ["cidade.", "floresta.", "nascente.", "história.", "Vinhedo."];
-const palavraEl = document.getElementById("palavra");
+const palavras   = ["cidade.", "floresta.", "nascente.", "história.", "Vinhedo."];
+const palavraEl  = document.getElementById("palavra");
 let indicePalavra = 0;
 
 setInterval(() => {

@@ -3,8 +3,14 @@
    ========================================================= */
 
 /* ── Base ─────────────────────────────────────────────── */
-html {
-  scroll-behavior: smooth;
+
+/* [FIX-SEC-15] scroll suave apenas para quem não pediu movimento reduzido.
+   Isso respeita a preferência do sistema (WCAG 2.1 / prefers-reduced-motion).
+   Antes: html { scroll-behavior: smooth; } — aplicava para todos sem exceção. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* ── Hero ─────────────────────────────────────────────── */

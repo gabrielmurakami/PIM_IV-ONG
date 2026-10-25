@@ -4,14 +4,15 @@
     <!--
       ══════════════════════════════════════════════════════
       Content Security Policy
-      Restringe quais recursos podem ser carregados na página.
-
-      Notas:
-      • 'unsafe-inline' em style-src: necessário para o Tailwind
-        play CDN injetar estilos dinamicamente via JavaScript.
-      • Se o Tailwind for substituído por um build estático (npm),
-        'unsafe-inline' pode ser removido.
       ══════════════════════════════════════════════════════
+
+      [FIX-SEC-4] 'unsafe-inline' em style-src permanece necessário
+      enquanto se usar o Tailwind Play CDN (ele injeta <style> via JS).
+      Para remover: substituir o Play CDN por um build estático via npm
+      (npx tailwindcss -i input.css -o style.css --minify).
+
+      [FIX-SEC-5] Adicionado frame-ancestors 'none' para bloquear
+      clickjacking — impede que o site seja embutido em <iframe>.
     -->
     <meta
       http-equiv="Content-Security-Policy"
@@ -26,16 +27,45 @@
       font-src    'self';
       object-src  'none';
       base-uri    'self';
+      frame-ancestors 'none';
     "
     />
 
     <!--
-      Tailwind CSS play CDN (v3.4.17) — CDN oficial
-      SRI: para calcular o hash localmente, execute:
+      [FIX-SEC-9] Referrer-Policy — impede que a URL completa do site
+      seja enviada como cabeçalho Referer ao navegar para links externos
+      (ex.: Instagram). Com strict-origin-when-cross-origin, envia
+      apenas a origem (domínio) em requisições cross-origin seguras.
+    -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!--
+      [FIX-SEC-10] Permissions-Policy — restringe APIs sensíveis do
+      navegador que o site não utiliza. Impede que scripts injetados
+      acessem câmera, microfone ou geolocalização.
+    -->
+    <meta
+      http-equiv="Permissions-Policy"
+      content="camera=(), microphone=(), geolocation=()"
+    />
+
+    <!--
+      Tailwind CSS Play CDN (v3.4.17) — CDN oficial
+      ─────────────────────────────────────────────
+      [FIX-SEC-3] TODO: adicionar SRI (Subresource Integrity).
+      O Play CDN exige que o hash seja calculado localmente, pois o
+      script gerado pode variar. Para calcular, execute:
+
         curl -s https://cdn.tailwindcss.com/3.4.17 \
           | openssl dgst -sha384 -binary \
           | openssl base64 -A
-      Depois substitua CALCULE_LOCALMENTE pelo resultado.
+
+      Depois adicione ao <script> abaixo:
+        integrity="sha384-HASH_CALCULADO_AQUI"
+        crossorigin="anonymous"
+
+      Alternativa definitiva: substituir o Play CDN por um build
+      estático (npm), eliminando também o 'unsafe-inline' da CSP.
     -->
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 
@@ -569,7 +599,7 @@
             coletivo.
           </p>
         </div>
-        <!-- Cards injetados pelo script.js -->
+        <!-- Cards injetados pelo script.js via API do DOM (sem innerHTML) -->
         <div id="princ" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
       </div>
     </section>
@@ -594,6 +624,7 @@
             required
             name="from_name"
             placeholder="Seu nome"
+            autocomplete="name"
             class="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-lime-400"
           />
           <input
@@ -601,6 +632,7 @@
             type="email"
             name="from_email"
             placeholder="Seu e-mail"
+            autocomplete="email"
             class="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-lime-400"
           />
           <select
@@ -616,10 +648,12 @@
             rows="4"
             name="mensagem"
             placeholder="Mensagem"
+            autocomplete="off"
             class="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-lime-400"
           ></textarea>
           <button
             id="btnEnviar"
+            type="submit"
             class="bg-green-800 text-white font-bold py-3 rounded-full hover:bg-green-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
           >
             Enviar
@@ -627,6 +661,11 @@
           <p id="ok" class="hidden text-center text-green-700 font-semibold">
             Obrigado! Entraremos em contato em breve. 🌱
           </p>
+          <!--
+            [FIX-SEC-8] O textContent desta mensagem é sobrescrito via JS
+            pelo rate limiter quando necessário, e restaurado ao valor
+            original após cada envio (veja script.js, constante ERRO_ENVIO_MSG).
+          -->
           <p id="erro" class="hidden text-center text-red-600 font-semibold">
             Ocorreu um erro ao enviar. Tente novamente ou escreva para
             reflorestavinhedo@gmail.com
@@ -642,11 +681,19 @@
       <p class="font-bold text-white text-lg mb-2">🌳 Refloresta Vinhedo</p>
       <p>
         Plantando a Mudança ·
+        <!-- mailto: não é URL externa, rel/target não se aplicam -->
         <a href="mailto:reflorestavinhedo@gmail.com" class="text-lime-400"
           >reflorestavinhedo@gmail.com</a
         >
         ·
-        <a href="https://instagram.com/reflorestavinhedo" class="text-lime-400"
+        <!-- [FIX-SEC-6] rel="noopener noreferrer" impede que a página
+             destino acesse window.opener (tabnapping). target="_blank"
+             é necessário para abrir em nova aba sem rel. -->
+        <a
+          href="https://instagram.com/reflorestavinhedo"
+          class="text-lime-400"
+          target="_blank"
+          rel="noopener noreferrer"
           >@reflorestavinhedo</a
         >
       </p>
@@ -658,6 +705,10 @@
     <!--
       config.js: define window.ENV com as credenciais do EmailJS.
       Está no .gitignore — copie config.example.js → config.js.
+
+      [FIX-SEC-11] TODO (opcional): adicionar SRI ao config.js em produção.
+      Como o conteúdo muda a cada deploy, o hash deve ser recalculado
+      automaticamente pelo pipeline de build e injetado aqui.
     -->
     <script src="config.js"></script>
 
