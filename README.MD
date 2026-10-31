@@ -31,14 +31,19 @@ O site reúne informações sobre o coletivo e incentiva moradores e organizaç�
 
 ```text
 refloresta-vinhedo/
-├── index.html      # Estrutura HTML da página
-├── style.css       # Estilos personalizados e animações
-├── script.js       # Lógica de interação, animações e envio do formulário
+├── index.html            # Estrutura HTML da página
+├── style.css             # Estilos personalizados e animações
+├── script.js             # Lógica de interação, animações e envio do formulário
+├── config.example.js     # Modelo de credenciais do EmailJS
+├── config.js             # Credenciais reais (não versionado — veja abaixo)
+├── .gitignore            # Exclui config.js e .env do controle de versão
 ├── assets/
 │   ├── plantio_de_mudas.jpg
 │   ├── acoes_educativas.jpg
 │   └── troca_de_saberes.jpg
-└── README.md       # Documentação do projeto
+├── prints/
+│   └── landingpage.png   # Captura de tela da página completa
+└── README.MD             # Documentação do projeto
 ```
 
 ## 🚀 Como executar localmente
@@ -46,7 +51,8 @@ refloresta-vinhedo/
 Não é necessário instalar dependências ou compilar o projeto.
 
 1. Faça o download ou clone este repositório.
-2. Abra o arquivo `index.html` em um navegador moderno.
+2. Copie `config.example.js` para `config.js` e preencha as credenciais do EmailJS (veja a seção abaixo).
+3. Abra o arquivo `index.html` em um navegador moderno.
 
 Para trabalhar no código, abra a pasta do projeto no editor de sua preferência, como o Visual Studio Code.
 
@@ -68,13 +74,18 @@ O formulário utiliza o [EmailJS](https://www.emailjs.com/) para enviar mensagen
    | `{{mensagem}}` | Mensagem |
 
 4. Acesse **Account → API Keys** e copie a **Public Key**.
-5. No arquivo `script.js`, substitua as três constantes no início do bloco EmailJS:
+5. Copie `config.example.js` para `config.js` e preencha os valores reais:
 
 ```js
-const EMAILJS_PUBLIC_KEY  = "SUA_PUBLIC_KEY";
-const EMAILJS_SERVICE_ID  = "SEU_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "SEU_TEMPLATE_ID";
+// config.js (não versionado — está no .gitignore)
+window.ENV = {
+  EMAILJS_PUBLIC_KEY:  "SUA_PUBLIC_KEY",
+  EMAILJS_SERVICE_ID:  "SEU_SERVICE_ID",
+  EMAILJS_TEMPLATE_ID: "SEU_TEMPLATE_ID",
+};
 ```
+
+> **Nota:** `config.js` está no `.gitignore` e nunca deve ser commitado. O `script.js` lê as credenciais de `window.ENV`, definido por esse arquivo.
 
 ### Comportamento do formulário
 
