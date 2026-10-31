@@ -69,11 +69,7 @@
       rgba(8, 30, 16, 0.7) 45%,
       rgba(8, 30, 16, 0.25) 100%
     ),
-    linear-gradient(
-      0deg,
-      rgba(8, 30, 16, 0.85) 0%,
-      rgba(8, 30, 16, 0) 45%
-    ),
+    linear-gradient(0deg, rgba(8, 30, 16, 0.85) 0%, rgba(8, 30, 16, 0) 45%),
     url("https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1800")
       center/cover no-repeat;
 }
