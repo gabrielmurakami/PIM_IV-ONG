@@ -1,5 +1,4 @@
 # ── Credenciais — NUNCA commitar ──────────────────────
-.env
 config.js
 
 # ── Sistema operacional ────────────────────────────────
