@@ -1,8 +1,27 @@
 /* =========================================================
    Refloresta Vinhedo — script.js
+
+   Responsabilidades deste módulo:
+     1. Renderização dinâmica dos cards de Princípios (DOM API)
+     2. Menu mobile (toggle de visibilidade)
+     3. Animações de entrada via IntersectionObserver
+     4. Envio do formulário de contato via EmailJS
+        (com rate limiting client-side)
+     5. Palavra rotativa no Hero
+     6. Ticker marquee
+     7. Barra de progresso de leitura + comportamento do header
+     8. Stagger de entrada dos cards
+
+   Arquivo de credenciais: config.js (excluído do controle de versão)
+   Dependências externas: EmailJS v4.4.1 (carregado em index.html)
    ========================================================= */
 
 /* ── 1. Dados dos Princípios ──────────────────────────── */
+/*
+ * Array estático com os 8 princípios do coletivo.
+ * Cada item é uma tupla [ícone, título, descrição].
+ * Os dados são inseridos no DOM pela função criarCardPrincipio (seção 2).
+ */
 const principios = [
   [
     "🍃",
@@ -93,6 +112,11 @@ principios.forEach(([icone, titulo, texto]) => {
 princEl.appendChild(fragment);
 
 /* ── 3. Menu Mobile ───────────────────────────────────── */
+/*
+ * Controla a exibição do menu em dispositivos móveis.
+ * O botão #menuBtn alterna as classes 'hidden'/'flex' no elemento #mobile.
+ * Clicar em qualquer link do menu fecha-o automaticamente.
+ */
 const menuBtn = document.getElementById("menuBtn");
 const mobile = document.getElementById("mobile");
 
@@ -109,6 +133,14 @@ document.querySelectorAll("#mobile a").forEach((a) => {
 });
 
 /* ── 4. IntersectionObserver (reveal + counters) ──────── */
+/*
+ * Observa elementos com as classes .reveal e .counter.
+ * Ao entrarem na viewport (threshold 0.2):
+ *   - Adiciona a classe .show → dispara a animação CSS de entrada
+ *   - Para elementos .counter: executa a animação numérica
+ *     (0 → valor final em ~50 passos de 25ms cada)
+ * Após a primeira aparição, para de observar o elemento (unobserve).
+ */
 const io = new IntersectionObserver(
   (entries) =>
     entries.forEach((entry) => {
@@ -223,6 +255,12 @@ form.onsubmit = async (e) => {
 };
 
 /* ── 6. Palavra rotativa no Hero ──────────────────────── */
+/*
+ * A cada 3,5s troca a palavra em destaque no título do Hero.
+ * Animação: desliza para cima com fade-out (classe .sai via CSS),
+ * depois troca o texto e remove .sai para o fade-in.
+ * As classes CSS correspondentes estão em style.css (#palavra, #palavra.sai).
+ */
 const palavras = ["cidade.", "floresta.", "nascente.", "história.", "Vinhedo."];
 const palavraEl = document.getElementById("palavra");
 let indicePalavra = 0;
@@ -237,6 +275,12 @@ setInterval(() => {
 }, 3500);
 
 /* ── 7. Ticker marquee ────────────────────────────────── */
+/*
+ * Conteúdo estático controlado — uso de innerHTML é seguro aqui pois
+ * os itens são um array de strings literais definidas neste arquivo.
+ * O conteúdo é duplicado para garantir loop visual contínuo; a animação
+ * CSS (.marquee em style.css) move o container em translateX(-50%).
+ */
 const itensMarquee = [
   "🌱 Plantando a mudança",
   "💧 Protegendo nascentes",
@@ -253,6 +297,11 @@ const mq = document.getElementById("mq");
 mq.innerHTML = conteudoMarquee + conteudoMarquee; // duplicado para loop contínuo
 
 /* ── 8. Header + barra de progresso de leitura ─────────── */
+/*
+ * No evento scroll:
+ *   - Atualiza a largura do #progresso proporcionalmente à posição de rolagem
+ *   - Adiciona/remove a classe .scrolled no <header> para o sombreado CSS
+ */
 const header = document.querySelector("header");
 const progresso = document.getElementById("progresso");
 

@@ -59,6 +59,9 @@
       </ul>
     </header>
 
+    <!-- Elemento semântico principal — melhora acessibilidade e SEO -->
+    <main id="conteudo-principal">
+
     <!-- ═══════════════════════════════════════════════════
          SEÇÃO 1 — HERO
     ════════════════════════════════════════════════════ -->
@@ -554,14 +557,19 @@
           id="form"
           class="grid gap-4 text-left bg-white p-8 rounded-2xl shadow-lg"
         >
+          <label for="from_name" class="sr-only">Seu nome</label>
           <input
+            id="from_name"
             required
+            type="text"
             name="from_name"
             placeholder="Seu nome"
             autocomplete="name"
             class="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-lime-400"
           />
+          <label for="from_email" class="sr-only">Seu e-mail</label>
           <input
+            id="from_email"
             required
             type="email"
             name="from_email"
@@ -569,7 +577,9 @@
             autocomplete="email"
             class="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-lime-400"
           />
+          <label for="assunto" class="sr-only">Assunto</label>
           <select
+            id="assunto"
             name="assunto"
             class="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-lime-400"
           >
@@ -578,7 +588,9 @@
             <option>Quero um plantio no meu condomínio</option>
             <option>Outro assunto</option>
           </select>
+          <label for="mensagem" class="sr-only">Mensagem</label>
           <textarea
+            id="mensagem"
             rows="4"
             name="mensagem"
             placeholder="Mensagem"
@@ -607,6 +619,8 @@
         </form>
       </div>
     </section>
+
+    </main><!-- /#conteudo-principal -->
 
     <!-- ═══════════════════════════════════════════════════
          FOOTER
