@@ -36,7 +36,7 @@ refloresta-vinhedo/
 ├── script.js             # Lógica de interação, animações e envio do formulário
 ├── config.example.js     # Modelo de credenciais do EmailJS
 ├── config.js             # Credenciais reais (não versionado — veja abaixo)
-├── .gitignore            # Exclui config.js e .env do controle de versão
+├── .gitignore            # Exclui config.js do controle de versão
 ├── assets/
 │   ├── plantio_de_mudas.jpg
 │   ├── acoes_educativas.jpg
